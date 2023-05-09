@@ -14,8 +14,9 @@ const footerClass = ref('footer')
 const btnClass = ref("btn btn-secondary");
 const searchClass = ref("form-control")
 const formClass = ref("form")
-const todosClass = ref("todos")
-const checkboxClass = ref("checkbox")
+const todosClass = ref("list-group")
+const todoClass = ref("list-group-item")
+const checkboxClass = ref("form-check-input")
 
 const newTodo = ref('')
 const todos = ref([])
@@ -46,8 +47,8 @@ function removeTodo(todo) {
       <button :class="btnClass">Add Todo</button>
     </form>
     <ul :class="todosClass">
-      <li :class="{ done: todo.done }" v-for="todo in filteredTodos" :key="todo.id">
-        <input :class="checkboxClass" type="checkbox" v-model="todo.done">
+      <li :class="todoClass" v-for="todo in filteredTodos" :key="todo.id">
+        <input :class="checkboxClass" type="checkbox" id="flexCheckDefault" value="" v-model="todo.done" autocomplete="off">
         <span :class="{ done: todo.done }">{{ todo.text }}</span>
         <button :class="btnClass" @click="removeTodo(todo)">X</button>
       </li>
@@ -98,17 +99,11 @@ function removeTodo(todo) {
   min-width: 100px;
 }
 
-.todos {
+.list-group-item {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
 
-  margin: 0;
-  padding: 0;
-
-  min-width: 200px;
-
-  font-size: 20px;
-  list-style: none;
+  min-width: 250px;
 }
 
 li {
@@ -132,20 +127,22 @@ li .btn {
   justify-content: center;
   align-items: center;
 
-  margin-left: 8px;
+  margin-left: 12px;
 
   width: 32px;
   height: 32px;
 
   font-size: 15px;
 }
-
-.checkbox {
-  margin-right: 8px;
-}
-
 span.done {
   text-decoration: line-through;
+}
+
+li .form-check-input {
+  margin: 0;
+  padding: 0;
+
+  margin-right: 12px;
 }
 
 </style>
