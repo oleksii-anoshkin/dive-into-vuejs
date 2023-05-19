@@ -132,6 +132,30 @@ function setOperation(key) {
       break;
   }
 }
+
+function radical(result) {
+  if (Number(result) !== 0) {
+    response(String(Math.sqrt(Number(result), 2)), [].concat('√', '(', `${result}`, ')'));
+  } else {
+    response('0', [])
+  }
+}
+
+function deleteElem(result, history) {
+  result.length === 1 ? response('0', history) : response(result.slice(0, result.length - 1), history)
+}
+
+function sqr(result) {
+  response(String(Math.pow(Number(result), 2)), [].concat('sqr', '(', `${result}`, ')'))
+}
+
+function oneDivideX(result) {
+  if (Number(result) !== 0) {
+    response(String(1 / Number(result)), [].concat('1/', '(', `${result}`, ')'));
+  } else {
+    response('0', [])
+  }
+}
 </script>
 
 <template>
@@ -162,28 +186,28 @@ function setOperation(key) {
             class="btn-app"
             :class="funcsBtnClass"
             type="button"
-            @click="() => result.length === 1 ? response('0', history) : response(result.slice(0, result.length - 1), history)">
+            @click="() => deleteElem(result, history)">
           Del
         </button>
         <button
             class="btn-app"
             :class="funcsBtnClass"
             type="button"
-            @click="() => response(String(1 / Number(result)), [].concat('1/', '(', `${result}`, ')'))">
+            @click="() => oneDivideX(result)">
           <sup>1</sup>/<sub>x</sub>
         </button>
         <button
             class="btn-app"
             :class="funcsBtnClass"
             type="button"
-            @click="() => response(String(Math.pow(Number(result), 2)), [].concat('sqr', '(', `${result}`, ')'))">
+            @click="() => sqr(result)">
           x<sup>2</sup>
         </button>
         <button
             class="btn-app"
             :class="funcsBtnClass"
             type="button"
-            @click="() => response(String(Math.sqrt(Number(result), 2)), [].concat('√', '(', `${result}`, ')'))">
+            @click="() => radical(result)">
           <sup>2</sup>&#8730;x
         </button>
         <button
