@@ -8,23 +8,35 @@ import TheHiddenBtn from './components/TheHiddenBtn.vue'
 let id = 0
 let hideCompleted = ref(true)
 
-const headerClass = ref('header')
-const mainClass = ref('main')
-const footerClass = ref('footer')
+// classes
+const containerClass = ref('container')
+const navClass = ref("navbar bg-body-tertiary");
+const inputContainerClass = ref("container-fluid");
+const formClass = ref("d-flex");
+const inputClass = ref("form-control me-2");
 const btnClass = ref("btn btn-secondary");
-const searchClass = ref("form-control")
-const formClass = ref("form")
-const todosClass = ref("list-group")
-const todoClass = ref("list-group-item")
-const checkboxClass = ref("form-check-input")
+const todosClass = ref("list-group");
+const todoClass = ref("list-group-item");
+const checkInputClass = ref("form-check-input me-1");
+const todoBoxClass = ref("input-label-box");
+const checkInputLabelClass = ref("form-check-label");
+const closeBtnClass = ref("btn-close");
 
+// texts
+const btnText = ref("Add");
+
+// other
 const newTodo = ref('')
 const todos = ref([])
 
+const newTodos = computed(() => {
+  return [].concat(todos.value.filter((t) => t.done === false), todos.value.filter((t) => t.done === true));
+})
+
 const filteredTodos = computed(() => {
   return hideCompleted.value
-    ? todos.value.filter((t) => !t.done)
-    : todos.value
+    ? newTodos.value.filter((t) => !t.done)
+    : newTodos.value
 })
 
 function addTodo() {
@@ -38,112 +50,43 @@ function removeTodo(todo) {
 </script>
 
 <template>
-  <header :class="headerClass">
+  <header :class="containerClass">
     <TheHeader />
   </header>
-  <main :class="mainClass">
-    <form :class="formClass" @submit.prevent="addTodo">
-      <input :class="searchClass" v-model="newTodo">
-      <button :class="btnClass">Add Todo</button>
-    </form>
+  <main :class="containerClass">
+    <div :class="navClass">
+      <div :class="inputContainerClass">
+        <form :class="formClass" @submit.prevent="addTodo">
+          <input
+            :class="inputClass" v-model="newTodo"
+          />
+          <button :class="btnClass" type="submit" @onClick={addTodo}>
+            {{ btnText }}
+          </button>
+        </form>
+      </div>
+    </div>
     <ul :class="todosClass">
-      <li :class="todoClass" v-for="todo in filteredTodos" :key="todo.id">
-        <input :class="checkboxClass" type="checkbox" id="flexCheckDefault" value="" v-model="todo.done" autocomplete="off">
-        <span :class="{ done: todo.done }">{{ todo.text }}</span>
-        <button :class="btnClass" @click="removeTodo(todo)">X</button>
-      </li>
+        <li :class="todoClass" v-for="todo in filteredTodos" :key="todo.id">
+          <div :class="todoBoxClass">
+            <input
+              :class="checkInputClass"
+              type="checkbox" v-model="todo.done"
+            />
+            <label :class="checkInputLabelClass">
+              {{todo.text}}
+            </label>
+          </div>
+          <button
+            type="button"
+            :class="closeBtnClass"
+            @click="removeTodo(todo)"
+            ></button>
+        </li>
     </ul>
   </main>
-  <footer :class="footerClass">
+  <footer :class="containerClass">
     <TheHiddenBtn :btnClass="btnClass" @response="(msg) => hideCompleted = msg"/> 
   </footer>
 </template>
-
-<style>
-.header,
-.main,
-.footer {
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-
-  padding: 10px 20px;
-
-  cursor: default;
-}
-
-.header {
-  padding-top: 40px;
-}
-
-.main {
-  flex: 1 1 auto;
-
-  justify-content: flex-start;
-}
-
-.footer {
-  padding-bottom: 40px;
-}
-
-.form {
-  display: flex;
-  flex-direction: row;
-  
-  padding-bottom: 20px;
-}
-
-.form .btn {
-  margin-left: 6px;
-  min-width: 100px;
-}
-
-.list-group-item {
-  display: flex;
-  flex-direction: row;
-
-  min-width: 250px;
-}
-
-li {
-  margin: 4px;  
-
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-
-  min-width: 200px;
-}
-
-li span {
-  margin: 0 auto 0 0;
-}
-
-li .btn {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: center;
-
-  margin-left: 12px;
-
-  width: 32px;
-  height: 32px;
-
-  font-size: 15px;
-}
-span.done {
-  text-decoration: line-through;
-}
-
-li .form-check-input {
-  margin: 0;
-  padding: 0;
-
-  margin-right: 12px;
-}
-
-</style>
 

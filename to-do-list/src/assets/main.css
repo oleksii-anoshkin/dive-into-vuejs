@@ -1,18 +1,91 @@
 .wrap {
   display: flex;
-
-  margin: 0;
-  padding: 0;
-
-  width: 100%;
-  height: 100vh;
-
-  background-color: antiquewhite;
-}
-
-.wrap__container {
-  display: flex;
   flex-direction: column;
 
-  width: 100%;
+  height: 100vh;
+}
+
+.wrap>.container-fluid {
+  max-width: 768px;
+  height: 100%;
+}
+
+.container-fluid {
+  display: flex;
+  flex-direction: column;
+}
+
+main.container {
+  flex: 1 1 auto;
+
+  padding-top: 0 !important;
+
+  padding: calc(var(--bs-gutter-x) * .5);
+}
+
+main .container-fluid {
+  padding-bottom: 0.5rem;
+}
+
+footer .d-flex {
+  margin-bottom: 0;
+}
+
+nav.navbar {
+  padding-bottom: 0;
+}
+
+main .navbar {
+  padding: 0;
+}
+
+main button.btn-secondary {
+  width: 120px;
+}
+
+span.navbar-brand {
+  margin: 20px 0;
+  cursor: default;
+
+  font-size: 36px;
+}
+
+@media (max-width: 500px) {
+  span.navbar-brand {
+    margin: 12px 0;
+    font-size: 32px;
+  }
+}
+
+.d-flex {
+  margin-bottom: 12px;
+}
+
+ul.list-group {
+  padding-top: calc(var(--bs-gutter-x)*.5);
+}
+
+li.list-group-item {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+div.input-label-box {
+  display: flex;
+  flex-flow: row nowrap;
+}
+
+input.form-check-input {
+  flex: 0 0 16px;
+}
+
+label.form-check-label {
+  flex: 1 1 auto;
+  margin-left: .25em;
+}
+
+button.btn-close {
+  min-width: 32px
 }

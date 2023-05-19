@@ -1,12 +1,19 @@
 <script setup>
 import { ref } from 'vue'
 
-const massage = ref("TO-DO list");
-const titleClass = ref("badge bg-secondary");
+// classes
+const navClass = ref("navbar bg-body-tertiary");
+const containerClass = ref("container-fluid");
+const titleClass = ref("navbar-brand h1");
+
+// texts
+const titleText = ref("TODO List");
 </script>
 
 <template>
-  <h1>
-    <span :class="titleClass">{{ massage }}</span>
-  </h1>
+      <nav :class="navClass">
+        <div :class="containerClass">
+          <span :class="titleClass">{{ titleText }}</span>
+        </div>
+      </nav>
 </template>
